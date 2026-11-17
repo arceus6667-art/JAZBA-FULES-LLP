@@ -1,16 +1,1 @@
-export default function Brand() {
-  return (
-    <a className="brand" href="/" aria-label="Jazba Fuels home">
-      <img
-        src="/brand/logo-original.jpeg"
-        alt="Original Jazba Fuels fuel-pump logo"
-        width="46"
-        height="46"
-      />
-      <span>
-        JAZBA FUELS <small>LLP</small>
-        <em>DOORSTEP DIESEL DELIVERY</em>
-      </span>
-    </a>
-  );
-}
+export default function Brand(){return <a className="brand" href="/" aria-label="Jazba Fuels home"><img className="brand-logo" src="/brand/jazba-fuels-logo.png" alt="Jazba Fuels official logo with golden swoosh" width={2172} height={724}/><span className="brand-tagline">LLP · DOORSTEP DIESEL DELIVERY</span></a>;}

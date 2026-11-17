@@ -49,6 +49,7 @@ const nav = [
   ["About us", "about"],
   ["Our business", "business"],
   ["Industries", "industries"],
+  ["Why Us", "why-us"],
   ["Mobile app", "app"],
 ];
 export default function Website({ data }: { data: PublicData }) {
@@ -182,8 +183,7 @@ export default function Website({ data }: { data: PublicData }) {
               Driving business forward.
             </p>
             <p className="hero-description">
-              Professional fuel logistics for a city that keeps moving. A
-              customer-focused approach, with technology at its heart.
+              Premium-grade diesel delivered to your doorstep within 30 minutes. Associated with IndianOil, with a commitment to quality and professional service.
             </p>
             <div className="button-row">
               <a className="button primary" href="#business">
@@ -206,8 +206,8 @@ export default function Website({ data }: { data: PublicData }) {
             </div>
             <div className="truck-photo">
               <img
-                src="/brand/truck-original.jpeg"
-                alt="Original Jazba Fuels doorstep diesel delivery truck photograph, displayed horizontally"
+                src="/brand/delivery-truck.png"
+                alt="Jazba Fuels doorstep diesel delivery truck"
                 fetchPriority="high"
               />
             </div>
@@ -237,9 +237,9 @@ export default function Website({ data }: { data: PublicData }) {
         <section className="highlights wrap" aria-label="Company at a glance">
           {[
             ["2021", "Established in Mumbai"],
-            ["Local", "Mumbai-based enterprise"],
-            ["Focused", "Commercial fuel logistics"],
-            ["Forward", "Technology-driven vision"],
+            ["30 minutes", "Doorstep diesel delivery"],
+            ["Premium-grade", "Quality-focused diesel supply"],
+            ["IndianOil", "Associated with IndianOil"],
           ].map(([title, text]) => (
             <div key={title}>
               <strong>{title}</strong>
@@ -281,15 +281,15 @@ export default function Website({ data }: { data: PublicData }) {
               </div>
             </div>
             <div className="leadership">
-              <span>DESIGNATED PARTNERS</span>
+              <span>OUR DIRECTORS</span>
               <div className="partner-grid">
                 <div>
-                  <strong>Asmita Jitendra Angare</strong>
-                  <small>Designated Partner</small>
+                  <strong>Asmita J Angare</strong>
+                  <small>Director</small><a href="tel:+918850049123">+91 88500 49123</a>
                 </div>
                 <div>
-                  <strong>Jeetendra Suresh Angare</strong>
-                  <small>Designated Partner</small>
+                  <strong>Jitendra Angare</strong>
+                  <small>Director</small><a href="tel:+919321759374">+91 93217 59374</a>
                 </div>
               </div>
             </div>
@@ -387,50 +387,31 @@ export default function Website({ data }: { data: PublicData }) {
             })}
           </div>
         </section>
-        <section className="why-section">
-          <div className="wrap why-inner">
-            <div>
-              <p className="eyebrow">THE JAZBA APPROACH</p>
-              <h2>
-                Professional by principle.
-                <br />
-                Customer-focused by choice.
-              </h2>
-            </div>
-            <div className="principles">
-              {[
-                "Professional business practices",
-                "Operational reliability",
-                "Customer-centric philosophy",
-                "Technology-driven development",
-              ].map((t) => (
-                <span key={t}>
-                  <Check size={16} />
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
+        <section className="why-section" id="why-us"><div className="wrap section"><div className="section-heading"><div><p className="eyebrow">04 — WHY US</p><h2>Quality fuel.<br/>Professional delivery.</h2></div><p>Jazba Fuels combines its association with IndianOil, premium-grade diesel and responsive doorstep service to support your business requirements.</p></div><div className="why-cards">{[
+['01','Associated with IndianOil','Our association with IndianOil reflects our commitment to dependable fuel supply and professional service.'],
+['02','Premium-grade diesel','We supply premium-grade diesel with an emphasis on purity, consistent quality and careful fuel handling.'],
+['03','Delivery within 30 minutes','Receive diesel at your doorstep within 30 minutes, helping your business keep essential operations moving.'],
+['04','Safe and reliable service','A dedicated approach to fuel handling, customer requirements and dependable doorstep delivery.']
+].map(([number,title,description])=><article key={number}><span>{number}</span><h3>{title}</h3><p>{description}</p></article>)}</div></div></section>
         <section className="section wrap app-section" id="app">
           <div className="app-copy">
-            <p className="eyebrow">04 — THE NEXT CHAPTER</p>
+            <p className="eyebrow">05 — DIGITAL SERVICES</p>
             <span className="status-pill">
               <span />
               {release?.releaseStatus || "Coming Soon"}
             </span>
             <h2>
-              Meet the future
+              The Jazba Fuels
               <br />
-              of Jazba Fuels.
+              Digital Platform.
             </h2>
             <p className="large-copy">
-              One platform.
-              <br />A smarter digital experience.
+              A dedicated platform for
+              <br />customer information and support.
             </p>
             <p>
               {release?.description ||
-                "We are working towards a more connected experience. Our upcoming mobile application will bring information and support closer to you."}
+                "The Jazba Fuels mobile application is under development. The planned platform will provide a central point for company information, customer communication and service updates. Official launch details will be announced here."}
             </p>
             <div className="planned">
               {[
@@ -454,8 +435,7 @@ export default function Website({ data }: { data: PublicData }) {
               </a>
             ) : (
               <p className="muted-small">
-                Planned features. The application is not currently available for
-                download.
+                Application launch is forthcoming. Features shown are planned and will be confirmed at release.
               </p>
             )}
             {release?.releaseNotes && (
@@ -482,25 +462,25 @@ export default function Website({ data }: { data: PublicData }) {
           </div>
           <div className="app-preview">
             <div className="preview-note">
-              A LOOK AHEAD <span>INTERFACE CONCEPT</span>
+              APPLICATION DEVELOPMENT <span>ILLUSTRATIVE INTERFACE</span>
             </div>
             <div className="phone">
               <div className="phone-notch" />
               <div className="phone-body">
                 <img
-                  src={release?.iconPath || "/brand/logo-original.jpeg"}
+                  src={release?.iconPath || "/brand/jazba-fuels-logo.png"}
                   alt="Jazba Fuels app identity"
                   width={47}
                   height={47}
                 />
                 <p className="phone-label">JAZBA FUELS</p>
                 <h3>
-                  A smarter
+                  Your business.
                   <br />
-                  way forward.
+                  Connected.
                 </h3>
                 <div className="phone-card">
-                  <span>YOUR DIGITAL EXPERIENCE</span>
+                  <span>JAZBA FUELS DIGITAL SERVICES</span>
                   <strong>{release?.releaseStatus || "Coming soon"}</strong>
                   <p>
                     Company information.
@@ -554,7 +534,7 @@ export default function Website({ data }: { data: PublicData }) {
         <section className="contact-section" id="contact">
           <div className="wrap section contact-grid">
             <div>
-              <p className="eyebrow">05 — LET’S CONNECT</p>
+              <p className="eyebrow">06 — CONTACT JAZBA FUELS</p>
               <h2>
                 Good business
                 <br />
@@ -579,6 +559,7 @@ export default function Website({ data }: { data: PublicData }) {
                   </a>
                 </div>
               </address>
+              <div className="delivery-contact"><span>DOORSTEP DELIVERY</span><a href="tel:+919004777892">+91 90047 77892</a><p>Premium-grade diesel · Delivery within 30 minutes</p></div>
               {data.settings.contactEmail && (
                 <p>
                   <a href={`mailto:${data.settings.contactEmail}`}>
@@ -613,7 +594,7 @@ export default function Website({ data }: { data: PublicData }) {
             <span className="footer-title">EXPLORE</span>
             <a href="#about">About us</a>
             <a href="#business">Our business</a>
-            <a href="#industries">Industries</a>
+            <a href="#industries">Industries</a><a href="#why-us">Why Us</a>
             <a href="#app">Mobile app</a>
           </div>
           <div className="footer-address">

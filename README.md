@@ -6,7 +6,7 @@ A responsive corporate website and private **Jazba Command Centre**, implemented
 
 - Next.js App Router, React, TypeScript, Tailwind CSS, Framer Motion, Lucide icons, Prisma and SQLite.
 - Bright white, navy, gold and orange public website; responsive navigation, leadership, industries, app announcement, legal pages, SEO metadata, sitemap and robots rules.
-- Original logo, original truck photograph displayed horizontally with CSS rotation, and unmodified letterhead. No generated truck, replacement logo, invented customer logos, contact numbers, testimonials or operational statistics.
+- Current official golden-swoosh logo and horizontally displayed delivery truck photograph, with original client assets retained as source references. No generated truck, replacement logo, invented customer logos, contact numbers, testimonials or operational statistics.
 - Inquiry form with server validation, explicit consent, honeypot, persistent rate limiting, database storage and a success dialog only after confirmed storage.
 - Hidden simultaneous **Z + X + C** shortcut. On mobile or with a keyboard alternative, visit **`/admin`** directly. The shortcut does not grant access.
 - Administrator password hashing with scrypt, hashed server-side session tokens, HTTP-only cookies, eight-hour sessions, logout, same-origin mutation checks and persistent login restrictions.
@@ -127,7 +127,7 @@ The integration tests start a production server on port 3107 and apply committed
 
 - Client specification: referenced ChatGPT conversation “Website Plan for Jazba Fuels”, containing the two recreated master prompts.
 - Office address: client's original corporate letterhead. It is presented as an **office**, not independently asserted as a registered address.
-- Partner names: **Asmita Jitendra Angare** and **Jeetendra Suresh Angare**, explicitly reconfirmed by the client on 18 November 2026 after noting differing public-directory listings.
+- Current director display names: **Asmita J Angare** and **Jitendra Angare**, supplied on the updated business card and identified as directors by the client. Their business contact numbers are displayed from that card.
 - LLPIN AAV-6067 and incorporation on 27 January 2021: supplied prompts and corroborating public listings, including [CorporateDir](https://corporatedir.com/company/jazba-fuels-llp). Directory status/partner data is not represented as a current official MCA verification.
 - Truck image: `WhatsApp Image 2026-11-17 at 11.47.17 PM.jpeg` → `public/brand/truck-original.jpeg` (original bytes; display-only rotation).
 - Logo: `WhatsApp Image 2026-11-17 at 11.43.06 PM.jpeg` → `public/brand/logo-original.jpeg` (original bytes).
@@ -136,3 +136,7 @@ The integration tests start a production server on port 3107 and apply committed
 - Manrope and Inter are self-hosted; their SIL Open Font License notices are in `public/fonts/`.
 
 The included privacy and website terms describe the implemented workflow. The owner should approve the wording and actual operating/retention practices before public launch.
+
+## Updated brand and service information
+
+The client supplied the current truck photograph (`public/brand/delivery-truck.png`), official golden-swoosh logo (`public/brand/jazba-fuels-logo.png`) and business card (`public/brand/business-card.png`). These replace the earlier assets in the public interface. The Why Us section and hero now state the client-confirmed IndianOil association, premium-grade diesel quality and delivery within 30 minutes. No dealership status or independent certification is inferred. The mobile-app announcement uses formal development language and a CSS-rendered three-dimensional phone concept. Website tests were intentionally not run for this update, as requested by the client.

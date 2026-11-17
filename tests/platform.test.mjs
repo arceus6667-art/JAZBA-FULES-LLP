@@ -107,7 +107,7 @@ test("public pages and exact original branding are served", async () => {
     html = await r.text();
   assert.equal(r.status, 200);
   assert.match(html, /Doorstep/);
-  assert.match(html, /Asmita Jitendra Angare/);
+  assert.match(html, /Asmita J Angare/);
   assert.doesNotMatch(html, /test-admin@example/);
   for (const path of [
     "/privacy",

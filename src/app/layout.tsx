@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     description: "Doorstep Diesel Delivery · Mumbai",
     images: [
       {
-        url: "/brand/letterhead-original.jpeg",
-        alt: "Original Jazba Fuels corporate letterhead",
+        url: "/brand/delivery-truck.png",
+        alt: "Jazba Fuels doorstep diesel delivery truck",
       },
     ],
   },
