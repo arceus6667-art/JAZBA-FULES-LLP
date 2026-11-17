@@ -15,7 +15,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();if(e.target.close
 addEventListener('keyup',e=>{keys.delete(e.key.toLowerCase());if(!keys.size)armed=true;});
 addEventListener('blur',()=>{keys.clear();armed=true;});
 
-document.querySelectorAll('footer button').forEach(b=>b.addEventListener('click',()=>{let note=document.querySelector('#privacy-status');if(!note){note=document.createElement('p');note.id='privacy-status';note.className='wrap muted-small';note.setAttribute('role','status');b.closest('footer').append(note);}note.textContent='This Sites version does not collect visitor analytics.';}));
+document.querySelectorAll('footer button').forEach(b=>b.addEventListener('click',()=>{let note=document.querySelector('#privacy-status');if(!note){note=document.createElement('p');note.id='privacy-status';note.className='wrap muted-small';note.setAttribute('role','status');b.closest('footer').append(note);}location.assign('/privacy#advertising');}));
 })();`;
 javascript += '\n' + await readFile('client/contact.js','utf8');
 const name=`site-${createHash('sha256').update(javascript).digest('hex').slice(0,12)}.js`;
@@ -34,6 +34,7 @@ async function visit(folder){
   html=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');
   html=html.replace(/<link\b[^>]*>/gi,tag=>/\bas=["']script["']/i.test(tag)||/\brel=["']modulepreload["']/i.test(tag)?'':tag);
   html=html.replace('</head>','<link rel="preload" href="/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin></head>');
+  if(!['admin.html','404.html','_not-found.html'].includes(entry.name)){html=html.replace('</head>','<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5987635567718449" crossorigin="anonymous"></script></head>');}
   const script=entry.name==='admin.html'?adminName:name;
   html=html.replace('</body>',`<script src="/assets/${script}" defer></script></body>`);
   await writeFile(path,html);pages++;

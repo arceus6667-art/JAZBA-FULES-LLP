@@ -78,6 +78,15 @@ export default {
   let asset=ASSETS[path];if(!asset&&!path.includes('.'))asset=ASSETS[path.replace(/\/$/,'')+'.html'];
   let status=200;if(!asset){asset=ASSETS['/404.html'];status=404;}
   if(!asset)return new Response('Not found',{status:404,headers:baseHeaders});
+  if(status===200&&!adminPath&&asset.mime.startsWith('text/html')){
+   let html=new TextDecoder().decode(Uint8Array.from(atob(asset.data),c=>c.charCodeAt(0)));
+   if(html.includes('pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')){
+    const nonce=btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(16))));
+    html=html.replace(/<script\b/g,`<script nonce="${nonce}"`);
+    const policy=`default-src 'self'; object-src 'none'; script-src 'nonce-${nonce}' 'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: blob: https:; font-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' https:; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'`;
+    return new Response(request.method==='HEAD'?null:html,{headers:{...baseHeaders,'Content-Type':asset.mime,'Content-Security-Policy':policy,'Cache-Control':'no-store'}});
+   }
+  }
   if(!adminPath&&request.headers.get('if-none-match')===asset.etag)return new Response(null,{status:304,headers:{...baseHeaders,ETag:asset.etag}});
   if(!decoded.has(asset.etag)){const text=atob(asset.data);decoded.set(asset.etag,Uint8Array.from(text,c=>c.charCodeAt(0)));}
   const immutable=path.startsWith('/assets/')||path.startsWith('/_next/');

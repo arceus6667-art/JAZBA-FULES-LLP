@@ -18,3 +18,7 @@ Source: https://github.com/arceus6667-art/JAZBA-FULES-LLP
 Visit /admin and use Sign in with ChatGPT. Sites provides verified identity headers; every admin page and API call checks the server-side ADMIN_OWNER_EMAIL allowlist. This secret is configured from the verified Site owner account. The public website remains public. Do not implement the reserved authentication routes in application code.
 
 The hosted dashboard provides actual inquiry counts, search/status/date filters, pagination, inquiry details, private notes, status updates, filtered CSV export and confirmed permanent deletion. Administrative mutations require same-origin requests and are recorded with the stable authenticated user ID. No inquiry data is embedded into public assets. Admin responses are private and not cached.
+
+## Google AdSense
+
+Public HTML pages include the owner-supplied asynchronous AdSense loader for ca-pub-5987635567718449. The export postprocessor inserts it after removing unused framework scripts, so it is preserved in the deployed output. Admin/login/error pages do not include ads. Public advertising pages receive fresh per-response script nonces and a strict-dynamic policy compatible with Google’s documented AdSense CSP integration. Administrative pages and API responses keep their existing restrictive policy. Complete site verification/review and configure Privacy & messaging in AdSense. No approval, ad serving or revenue is assumed.
