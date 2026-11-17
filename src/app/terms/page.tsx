@@ -1,5 +1,5 @@
 import Link from "next/link";
-export const metadata = { title: "Terms and conditions | Jazba Fuels LLP" };
+export const metadata = { title: "Terms and conditions | Jazba Fuels LLP", alternates: {canonical: "/terms"} };
 export default function Terms() {
   return (
     <main className="legal wrap">

@@ -2,8 +2,8 @@ import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { join, extname } from 'node:path';
 import { createHash } from 'node:crypto';
 const assets={};
-const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.woff2':'font/woff2','.webp':'image/webp','.png':'image/png','.jpeg':'image/jpeg','.txt':'text/plain; charset=utf-8'};
-const include=new Set(['/fonts/manrope.woff2','/fonts/inter.woff2']);
+const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.woff2':'font/woff2','.webp':'image/webp','.png':'image/png','.jpeg':'image/jpeg','.txt':'text/plain; charset=utf-8','.xml':'application/xml; charset=utf-8'};
+const include=new Set(['/fonts/manrope.woff2','/fonts/inter.woff2','/robots.txt','/sitemap.xml']);
 async function htmlFiles(folder){for(const f of await readdir(folder,{withFileTypes:true})){if(f.name==='_next')continue;const path=join(folder,f.name);if(f.isDirectory())await htmlFiles(path);else if(f.name.endsWith('.html')){
  const url='/'+path.replaceAll('\\','/').replace(/^out\//,'');include.add(url);const html=await readFile(path,'utf8');
  for(const match of html.matchAll(/(?:href|src)="(\/[^"?#]+)"/g)){if(/\.(css|js|woff2|webp|png|jpeg)$/.test(match[1]))include.add(match[1]);}

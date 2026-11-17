@@ -22,3 +22,7 @@ The hosted dashboard provides actual inquiry counts, search/status/date filters,
 ## Google AdSense
 
 Public HTML pages include the owner-supplied asynchronous AdSense loader for ca-pub-5987635567718449. The export postprocessor inserts it after removing unused framework scripts, so it is preserved in the deployed output. Admin/login/error pages do not include ads. Public advertising pages receive fresh per-response script nonces and a strict-dynamic policy compatible with Google’s documented AdSense CSP integration. Administrative pages and API responses keep their existing restrictive policy. Complete site verification/review and configure Privacy & messaging in AdSense. No approval, ad serving or revenue is assumed.
+
+## Search discovery
+
+Public pages allow indexing; admin pages remain noindex and require owner authentication. Canonical URLs use https://jazbafuelsllp.com. The Worker serves /robots.txt and /sitemap.xml, and the homepage includes LocalBusiness JSON-LD using only the visible company details. The static delivery step preserves structured-data scripts. Search Console submission and Business Profile verification are separate account tasks; ranking or indexing is not guaranteed.

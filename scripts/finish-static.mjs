@@ -31,7 +31,7 @@ async function visit(folder){
   if(entry.isDirectory()){if(entry.name!=='_next')await visit(path);continue;}
   if(!entry.name.endsWith('.html'))continue;
   let html=await readFile(path,'utf8');
-  html=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');
+  html=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,tag=>/type=["']application\/ld\+json["']/i.test(tag)?tag:'');
   html=html.replace(/<link\b[^>]*>/gi,tag=>/\bas=["']script["']/i.test(tag)||/\brel=["']modulepreload["']/i.test(tag)?'':tag);
   html=html.replace('</head>','<link rel="preload" href="/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin></head>');
   if(!['admin.html','404.html','_not-found.html'].includes(entry.name)){html=html.replace('</head>','<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5987635567718449" crossorigin="anonymous"></script></head>');}
