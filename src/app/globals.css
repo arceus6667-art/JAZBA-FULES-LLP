@@ -1990,3 +1990,14 @@ td button {
 
 /* Keep scrolling and first paint lightweight; the phone retains its static depth. */
 header{background:#fff}.app-preview::after{filter:none}.phone{backface-visibility:hidden}.hero-copy,.hero-visual{opacity:1;transform:none}
+/* Section 1–6: gradual colour handoffs instead of horizontal cut lines.
+   Static gradients require no animation runtime, scroll handlers or blur layers. */
+main{--section-blend:112px}
+.business-section,.why-section,.contact-section{border-block:0;background-color:#fff;background-repeat:no-repeat}
+.business-section{background-image:linear-gradient(to bottom,#fff 0,var(--pearl) var(--section-blend),var(--pearl) calc(100% - var(--section-blend)),#fff 100%)}
+.why-section{background-image:linear-gradient(to bottom,#fff 0,#f8f7f3 var(--section-blend),#f8f7f3 calc(100% - var(--section-blend)),#fff 100%)}
+.contact-section{background-image:linear-gradient(to bottom,#fff 0,var(--pearl) var(--section-blend),var(--pearl) calc(100% - var(--section-blend)),#fff 100%)}
+.about,.industries,.app-section{border-block:0;background:transparent}
+.highlights{border-bottom:0}.updates{border-top:0}
+@media(max-width:800px){main{--section-blend:72px}}
+
