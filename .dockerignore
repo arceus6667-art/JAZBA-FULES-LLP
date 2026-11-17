@@ -1,0 +1,9 @@
+.git
+.next
+node_modules
+.env*
+prisma/data
+storage
+backups
+tests
+*.tsbuildinfo
