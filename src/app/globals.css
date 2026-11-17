@@ -2002,3 +2002,4 @@ main{--section-blend:112px}
 @media(max-width:800px){main{--section-blend:72px}}
 
 dialog.success-dialog{margin:auto}
+.admin-record small{display:block;color:var(--muted);font-size:10px}.admin-record button{border:0;background:none;color:var(--navy);text-align:left;padding:0;font-size:12px;cursor:pointer;text-decoration:underline}#detail-message{padding:18px;background:var(--pearl);margin:18px 0;border:1px solid var(--line)}#admin-notice[hidden],[data-panel][hidden],#inquiry-detail[hidden],#inquiry-empty[hidden],#activity-empty[hidden]{display:none!important}#detail-contact{overflow-wrap:anywhere}.admin-sidebar a.logout{text-align:center;display:block}.admin-login .button{margin-top:18px}.actions{display:flex;gap:10px;flex-wrap:wrap}

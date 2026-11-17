@@ -9,9 +9,11 @@ async function htmlFiles(folder){for(const f of await readdir(folder,{withFileTy
  for(const match of html.matchAll(/(?:href|src)="(\/[^"?#]+)"/g)){if(/\.(css|js|woff2|webp|png|jpeg)$/.test(match[1]))include.add(match[1]);}
 }}}
 await htmlFiles('out');
+const extraJs=await readdir('out/assets');for(const name of extraJs)if(name.startsWith('admin-')&&name.endsWith('.js'))include.add('/assets/'+name);
 for(const url of include){const bytes=await readFile(join('out',url.slice(1)));assets[url]={data:bytes.toString('base64'),mime:types[extname(url)]||'application/octet-stream',etag:'"'+createHash('sha256').update(bytes).digest('hex').slice(0,24)+'"'};}
 await mkdir('dist/server',{recursive:true});await mkdir('dist/.openai',{recursive:true});
-const worker=(await readFile('worker/index.mjs','utf8')).replace("import { ASSETS } from './assets.mjs';",'const ASSETS = '+JSON.stringify(assets)+';');
+const adminCode=(await readFile('worker/admin.mjs','utf8')).replaceAll('export function ','function ').replaceAll('export async function ','async function ');
+const worker=(await readFile('worker/index.mjs','utf8')).replace("import { administrator, adminLogin, adminApi } from './admin.mjs';",adminCode).replace("import { ASSETS } from './assets.mjs';",'const ASSETS = '+JSON.stringify(assets)+';');
 await writeFile('dist/server/index.js',worker);
 await writeFile('dist/.openai/hosting.json',await readFile('.openai/hosting.json','utf8'));
 console.log(`Built persistent contact Worker with ${include.size} embedded static resources.`);

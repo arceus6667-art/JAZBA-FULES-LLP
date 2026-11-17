@@ -1,5 +1,6 @@
 // Kept dependency-free at runtime. The build embeds only referenced static assets.
 import { ASSETS } from './assets.mjs';
+import { administrator, adminLogin, adminApi } from './admin.mjs';
 
 const baseHeaders = {
   'X-Content-Type-Options':'nosniff',
@@ -11,7 +12,7 @@ const baseHeaders = {
 };
 const decoded = new Map();
 const encoder = new TextEncoder();
-const json = (body,status=200) => Response.json(body,{status,headers:{...baseHeaders,'Cache-Control':'no-store'}});
+const json = (body,status=200) => Response.json(body,{status,headers:{...baseHeaders,'Cache-Control':'private, no-store'}});
 const digest = async input => [...new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(input)))].map(v=>v.toString(16).padStart(2,'0')).join('');
 
 async function readJson(request){
@@ -66,17 +67,20 @@ async function contact(request,env){
 export default {
  async fetch(request,env){
   const url=new URL(request.url);
+  let path;try{path=decodeURIComponent(url.pathname);}catch{return new Response('Bad request',{status:400});}
+  const adminPath=['/admin','/admin/','/admin.html'].includes(path);
+  if(adminPath&&!administrator(request,env))return adminLogin(request,baseHeaders,Object.keys(ASSETS).find(path=>path.endsWith('.css'))||'');
+  if(url.pathname.startsWith('/api/admin/'))return adminApi(request,env,{json,readJson});
   if(url.pathname==='/api/contact')return request.method==='POST'?contact(request,env):json({error:'Method not allowed.'},405);
   if(url.pathname.startsWith('/api/'))return json({error:'Not found.'},404);
   if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405,headers:{...baseHeaders,Allow:'GET, HEAD'}});
-  let path=url.pathname;try{path=decodeURIComponent(path);}catch{return new Response('Bad request',{status:400});}
   if(path==='/')path='/index.html';
   let asset=ASSETS[path];if(!asset&&!path.includes('.'))asset=ASSETS[path.replace(/\/$/,'')+'.html'];
   let status=200;if(!asset){asset=ASSETS['/404.html'];status=404;}
   if(!asset)return new Response('Not found',{status:404,headers:baseHeaders});
-  if(request.headers.get('if-none-match')===asset.etag)return new Response(null,{status:304,headers:{...baseHeaders,ETag:asset.etag}});
+  if(!adminPath&&request.headers.get('if-none-match')===asset.etag)return new Response(null,{status:304,headers:{...baseHeaders,ETag:asset.etag}});
   if(!decoded.has(asset.etag)){const text=atob(asset.data);decoded.set(asset.etag,Uint8Array.from(text,c=>c.charCodeAt(0)));}
   const immutable=path.startsWith('/assets/')||path.startsWith('/_next/');
-  return new Response(request.method==='HEAD'?null:decoded.get(asset.etag),{status,headers:{...baseHeaders,'Content-Type':asset.mime,ETag:asset.etag,'Cache-Control':asset.mime.startsWith('text/html')?'public, max-age=0, must-revalidate':immutable?'public, max-age=31536000, immutable':'public, max-age=3600'}});
+  return new Response(request.method==='HEAD'?null:decoded.get(asset.etag),{status,headers:{...baseHeaders,'Content-Type':asset.mime,ETag:asset.etag,'Cache-Control':adminPath?'private, no-store':asset.mime.startsWith('text/html')?'public, max-age=0, must-revalidate':immutable?'public, max-age=31536000, immutable':'public, max-age=3600'}});
  }
 };

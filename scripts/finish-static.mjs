@@ -21,6 +21,9 @@ javascript += '\n' + await readFile('client/contact.js','utf8');
 const name=`site-${createHash('sha256').update(javascript).digest('hex').slice(0,12)}.js`;
 await mkdir('out/assets',{recursive:true});
 await writeFile(join('out/assets',name),javascript);
+const adminJavascript=await readFile('client/admin.js','utf8');
+const adminName='admin-'+createHash('sha256').update(adminJavascript).digest('hex').slice(0,12)+'.js';
+await writeFile(join('out/assets',adminName),adminJavascript);
 let pages=0;
 async function visit(folder){
  for(const entry of await readdir(folder,{withFileTypes:true})){
@@ -31,7 +34,8 @@ async function visit(folder){
   html=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');
   html=html.replace(/<link\b[^>]*>/gi,tag=>/\bas=["']script["']/i.test(tag)||/\brel=["']modulepreload["']/i.test(tag)?'':tag);
   html=html.replace('</head>','<link rel="preload" href="/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin></head>');
-  html=html.replace('</body>',`<script src="/assets/${name}" defer></script></body>`);
+  const script=entry.name==='admin.html'?adminName:name;
+  html=html.replace('</body>',`<script src="/assets/${script}" defer></script></body>`);
   await writeFile(path,html);pages++;
  }
 }
