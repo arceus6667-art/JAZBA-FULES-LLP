@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -163,12 +162,7 @@ export default function Website({ data }: { data: PublicData }) {
       )}
       <main id="main">
         <section className="hero wrap" id="home">
-          <motion.div
-            className="hero-copy"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className="hero-copy">
             <p className="eyebrow">
               <span /> ENERGY THAT MOVES BUSINESS
             </p>
@@ -193,22 +187,17 @@ export default function Website({ data }: { data: PublicData }) {
                 About Jazba Fuels <ArrowRight size={17} />
               </a>
             </div>
-          </motion.div>
-          <motion.div
-            className="hero-visual"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7 }}
-          >
+          </div>
+          <div className="hero-visual">
             <div className="visual-top">
               <span>JAZBA FUELS LLP</span>
               <span>01 / ON THE MOVE</span>
             </div>
             <div className="truck-photo">
               <img
-                src="/brand/delivery-truck.png"
+                src="/brand/delivery-truck.webp"
                 alt="Jazba Fuels doorstep diesel delivery truck"
-                fetchPriority="high"
+                fetchPriority="high" width={1162} height={557} decoding="async"
               />
             </div>
             <div className="visual-bottom">
@@ -232,7 +221,7 @@ export default function Website({ data }: { data: PublicData }) {
               </span>
               <ArrowUpRight size={19} />
             </a>
-          </motion.div>
+          </div>
         </section>
         <section className="highlights wrap" aria-label="Company at a glance">
           {[
@@ -468,7 +457,7 @@ export default function Website({ data }: { data: PublicData }) {
               <div className="phone-notch" />
               <div className="phone-body">
                 <img
-                  src={release?.iconPath || "/brand/jazba-fuels-logo.png"}
+                  src={release?.iconPath || "/brand/jazba-fuels-logo-640.webp"}
                   alt="Jazba Fuels app identity"
                   width={47}
                   height={47}

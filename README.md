@@ -140,3 +140,7 @@ The included privacy and website terms describe the implemented workflow. The ow
 ## Updated brand and service information
 
 The client supplied the current truck photograph (`public/brand/delivery-truck.png`), official golden-swoosh logo (`public/brand/jazba-fuels-logo.png`) and business card (`public/brand/business-card.png`). These replace the earlier assets in the public interface. The Why Us section and hero now state the client-confirmed IndianOil association, premium-grade diesel quality and delivery within 30 minutes. No dealership status or independent certification is inferred. The mobile-app announcement uses formal development language and a CSS-rendered three-dimensional phone concept. Website tests were intentionally not run for this update, as requested by the client.
+
+## Loading and scrolling improvements
+
+Public image references now use a 640-pixel lossless WebP wordmark and a WebP truck photograph; the original PNGs remain preserved. Hero content no longer waits for an entrance animation or animation-library hydration. Header and phone-ground styling avoid unnecessary repaint filters. The Sites deployment additionally strips the unused React hydration runtime because its public interactions are static; the full application retains React for inquiries and administration.

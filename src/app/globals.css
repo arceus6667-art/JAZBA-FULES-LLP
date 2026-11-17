@@ -1987,3 +1987,6 @@ td button {
 @media(max-width:420px){.brand img.brand-logo{width:175px;height:55px}.brand>.brand-tagline{font-size:5.8px}.why-cards{grid-template-columns:1fr}.why-cards article{border-right:0;border-bottom:1px solid #e5e1d6}.why-cards article:last-child{border-bottom:0}.why-cards article>span{margin-bottom:15px}.highlights strong{font-size:20px}.app-preview{padding-inline:15px}}
 @media(prefers-reduced-motion:reduce){.truck-photo img{transform:none!important}.phone::before{transform:none!important}}
 
+
+/* Keep scrolling and first paint lightweight; the phone retains its static depth. */
+header{background:#fff}.app-preview::after{filter:none}.phone{backface-visibility:hidden}.hero-copy,.hero-visual{opacity:1;transform:none}
