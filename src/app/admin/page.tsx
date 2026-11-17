@@ -1,9 +1,2 @@
-import Admin from "@/components/Admin";
-export const metadata = {
-  title: "Jazba Command Centre",
-  robots: { index: false, follow: false },
-};
-export const dynamic = "force-dynamic";
-export default function AdminPage() {
-  return <Admin />;
-}
+export const metadata={title:'Jazba Command Centre',robots:{index:false,follow:false}};
+export default function AdminInfo(){return <main className="wrap legal"><a href="/" className="back-link">← Back to Jazba Fuels</a><h1>Jazba Command Centre</h1><p>Corporate inquiries submitted through this website are saved in the Site’s private persistent database. No customer records are exposed on this page.</p><p>The full administration dashboard and app-management modules are maintained in the complete application repository. Authorised Site owners can retrieve inquiry records through Sites database tools.</p><a className="button primary" href="https://github.com/arceus6667-art/JAZBA-FULES-LLP">View application source</a></main>;}

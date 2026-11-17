@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -74,7 +74,7 @@ export default function Website({ data }: { data: PublicData }) {
       .split("; ")
       .find((c) => c.startsWith("jazba_analytics_consent="))
       ?.split("=")[1];
-    setCookie(consent || "ask");
+    setCookie("no");
     return () => {
       window.removeEventListener("keydown", down);
       window.removeEventListener("keyup", up);
@@ -83,7 +83,7 @@ export default function Website({ data }: { data: PublicData }) {
   }, []);
   useEffect(() => {
     if (
-      cookie !== "yes" ||
+      true || cookie !== "yes" ||
       navigator.doNotTrack === "1" ||
       (navigator as Navigator & { globalPrivacyControl?: boolean })
         .globalPrivacyControl
@@ -603,7 +603,7 @@ export default function Website({ data }: { data: PublicData }) {
           <div>
             <a href="/privacy">Privacy policy</a>
             <a href="/terms">Terms &amp; conditions</a>
-            <button onClick={() => setPrivacy(true)}>Cookie preferences</button>
+            <button onClick={() => window.alert("This Sites preview does not collect analytics.")}>Cookie preferences</button>
           </div>
         </div>
         {data.settings.footerInformation && (
@@ -631,147 +631,4 @@ export default function Website({ data }: { data: PublicData }) {
     </>
   );
 }
-function ContactForm() {
-  const [busy, setBusy] = useState(false),
-    [error, setError] = useState(""),
-    [success, setSuccess] = useState(false);
-  const dialog = useRef<HTMLDialogElement>(null);
-  async function submit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setError("");
-    setBusy(true);
-    const form = e.currentTarget;
-    const values = Object.fromEntries(new FormData(form));
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, consent: values.consent === "on" }),
-      });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error);
-      form.reset();
-      setSuccess(true);
-      dialog.current?.showModal();
-    } catch (e) {
-      setError(
-        e instanceof Error
-          ? e.message
-          : "Unable to send your inquiry. Please try again.",
-      );
-    } finally {
-      setBusy(false);
-    }
-  }
-  return (
-    <>
-      <form className="contact-form" onSubmit={submit}>
-        <h3>Corporate inquiry</h3>
-        <p>Fields marked * are required.</p>
-        <div className="form-grid">
-          {[
-            ["fullName", "Full name", "text", 100],
-            ["email", "Email address", "email", 254],
-            ["companyName", "Company name", "text", 150],
-            ["contactNumber", "Contact number", "tel", 25],
-          ].map(([name, label, type, max]) => (
-            <label key={name}>
-              {" "}
-              {label} *
-              <input
-                name={String(name)}
-                type={String(type)}
-                required
-                maxLength={Number(max)}
-                minLength={name === "contactNumber" ? 7 : 2}
-                autoComplete={
-                  name === "fullName"
-                    ? "name"
-                    : name === "email"
-                      ? "email"
-                      : name === "contactNumber"
-                        ? "tel"
-                        : "organization"
-                }
-              />
-            </label>
-          ))}
-        </div>
-        <label>
-          Subject *
-          <input name="subject" required minLength={3} maxLength={160} />
-        </label>
-        <label>
-          How can we help? *
-          <textarea
-            name="message"
-            rows={4}
-            required
-            minLength={10}
-            maxLength={5000}
-          />
-        </label>
-        <div className="honeypot" aria-hidden="true">
-          <label>
-            Leave this empty
-            <input name="website" tabIndex={-1} autoComplete="off" />
-          </label>
-        </div>
-        <label className="checkbox-label">
-          <input type="checkbox" name="consent" required />
-          <span>
-            I agree to the{" "}
-            <a href="/privacy" target="_blank">
-              privacy policy
-            </a>{" "}
-            and consent to Jazba Fuels LLP using my details to respond to this
-            inquiry. *
-          </span>
-        </label>
-        {error && (
-          <p className="error" role="alert">
-            {error}
-          </p>
-        )}
-        <button className="button primary submit-button" disabled={busy}>
-          {busy ? (
-            <>
-              <LoaderCircle className="spin" size={18} /> Sending inquiry…
-            </>
-          ) : (
-            <>
-              Send inquiry <ArrowUpRight size={18} />
-            </>
-          )}
-        </button>
-        <span className="form-note">
-          Your details are used to respond to your inquiry.
-        </span>
-      </form>
-      <dialog
-        ref={dialog}
-        className="success-dialog"
-        onClose={() => setSuccess(false)}
-      >
-        {success && (
-          <>
-            <div className="success-mark">
-              <Check size={28} />
-            </div>
-            <h3>Thank you for getting in touch.</h3>
-            <p>
-              Thank you for contacting Jazba Fuels LLP. We will reach you very
-              shortly.
-            </p>
-            <button
-              className="button primary"
-              onClick={() => dialog.current?.close()}
-            >
-              Done <Check size={17} />
-            </button>
-          </>
-        )}
-      </dialog>
-    </>
-  );
-}
+function ContactForm(){return <><form className="contact-form" action="/api/contact" method="post"><h3>Corporate inquiry</h3><p>Fields marked * are required.</p><div className="form-grid">{[['fullName','Full name','text','name',100,2],['email','Email address','email','email',254,3],['companyName','Company name','text','organization',150,2],['contactNumber','Contact number','tel','tel',25,7]].map(([name,label,type,complete,max,min])=><label key={name}>{label} *<input name={String(name)} type={String(type)} autoComplete={String(complete)} required minLength={Number(min)} maxLength={Number(max)}/></label>)}</div><label>Subject *<input name="subject" required minLength={3} maxLength={160}/></label><label>How can we help? *<textarea name="message" rows={4} required minLength={3} maxLength={5000}/><small className="muted-small">At least 3 characters.</small></label><div className="honeypot" aria-hidden="true"><label>Leave this empty<input name="website" tabIndex={-1} autoComplete="off"/></label></div><label className="checkbox-label"><input type="checkbox" name="consent" required/><span>I agree to the <a href="/privacy" target="_blank" rel="noreferrer">privacy policy</a> and consent to Jazba Fuels LLP using my details to respond to this inquiry. *</span></label><p id="contact-error" className="error" role="alert" hidden/><button type="submit" className="button primary submit-button">Send inquiry <ArrowUpRight size={18}/></button><span className="form-note">Your details are used to respond to your inquiry.</span><noscript><p>Please enable JavaScript to submit this form, or call +91 90047 77892.</p></noscript></form><dialog className="success-dialog" aria-labelledby="inquiry-success-heading"><div className="success-mark"><Check size={28}/></div><h3 id="inquiry-success-heading">Thank you for getting in touch.</h3><p>Thank you for contacting Jazba Fuels LLP. We will reach you very shortly.</p><p id="inquiry-reference" className="muted-small"/><button type="button" className="button primary dialog-close">Done <Check size={17}/></button></dialog></>;}

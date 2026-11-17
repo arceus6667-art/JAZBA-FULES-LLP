@@ -9,3 +9,10 @@ storage/
 backups/
 coverage/
 .test-runtime-*/
+
+out/
+
+dist/
+worker/assets.mjs
+.dev.vars*
+.wrangler/
